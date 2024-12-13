@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useCart } from "../../Context";
 
-const CardShooping = ({ image, name, category, price, onUpdateCart, cartItems }) => {
+const CardShooping = ({ image, name, category, price }) => {
+  const { cartItems, updateCart } = useCart();
   const [quantity, setQuantity] = useState(0);
 
   useEffect(() => {
-    // Actualiza el estado del botón según el carrito
     const itemInCart = cartItems.find((item) => item.name === name);
     setQuantity(itemInCart ? itemInCart.quantity : 0);
   }, [cartItems, name]);
@@ -12,14 +13,14 @@ const CardShooping = ({ image, name, category, price, onUpdateCart, cartItems })
   const handleAddToCart = () => {
     if (quantity === 0) {
       setQuantity(1);
-      onUpdateCart({ name, price, quantity: 1 }); // Agregar al carrito
+      updateCart({ name, price, quantity: 1, image });
     }
   };
 
   const handleIncrement = () => {
     setQuantity((prev) => {
       const newQuantity = prev + 1;
-      onUpdateCart({ name, price, quantity: newQuantity }); // Actualizar en el carrito
+      updateCart({ name, price, quantity: newQuantity, image });
       return newQuantity;
     });
   };
@@ -28,10 +29,10 @@ const CardShooping = ({ image, name, category, price, onUpdateCart, cartItems })
     setQuantity((prev) => {
       if (prev > 1) {
         const newQuantity = prev - 1;
-        onUpdateCart({ name, price, quantity: newQuantity }); // Actualizar en el carrito
+        updateCart({ name, price, quantity: newQuantity, image });
         return newQuantity;
       } else {
-        onUpdateCart({ name, price, quantity: 0 }); // Quitar del carrito
+        updateCart({ name, price, quantity: 0, image });
         return 0;
       }
     });
@@ -43,7 +44,7 @@ const CardShooping = ({ image, name, category, price, onUpdateCart, cartItems })
         src={image.thumbnail}
         alt={name}
         className={`w-full h-auto object-cover rounded-lg cursor-pointer ${
-          quantity > 0 ? "border border-rose-950 duration-300" : "border-none"
+          quantity > 0 ? "border border-orange-800 duration-300" : "border-none"
         }`}
         onClick={handleAddToCart}
         srcSet={`
@@ -56,8 +57,8 @@ const CardShooping = ({ image, name, category, price, onUpdateCart, cartItems })
       <div className="w-full flex justify-center">
         <button
           onClick={quantity === 0 ? handleAddToCart : null}
-          className={`flex items-center px-8 py-3 text-rose-950 bg-white border border-rose-950 rounded-3xl -mt-6 font-semibold ${
-            quantity > 0 ? "bg-orange-700 text-white duration-300" : ""
+          className={`flex items-center px-8 py-3 text-orange-800 bg-white border border-rose-950 rounded-3xl -mt-6 font-semibold ${
+            quantity > 0 ? "bg-orange-600 text-white duration-300" : ""
           }`}
         >
           {quantity > 0 ? (

@@ -1,20 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
+import { useCart } from "../../Context";
 import { motion } from "framer-motion";
-import ModalConfirmation from "../modalconfirmation";
 
-const CartShooping = ({ cartItems, onRemoveItem }) => {
-  const [showOrder, setShowOrder] = useState(false); // Corrección en la inicialización del estado
+const CartShooping = () => {
+  const { cartItems, updateCart, toggleModal } = useCart();
 
   const handleRemoveItem = (item) => {
-    onRemoveItem({ ...item, quantity: 0 }); // Eliminar del carrito y reiniciar cantidad
+    updateCart({ ...item, quantity: 0 });
   };
 
-  const toggleShowOrder = () => {
-    setShowOrder((prev) => !prev); // Actualizar el estado del modal
-  };
 
   return (
-    <div className="bg-white w-full h-auto flex flex-col p-4 rounded-2xl my-4 font-redhattext">
+    <div className="bg-white w-full h-auto flex flex-col p-4 rounded-2xl my-4 lg:my-0 font-redhattext">
       <h1 className="text-4xl font-bold my-4 text-[#c83b0e]">
         Your Cart <span>({cartItems.length})</span>
       </h1>
@@ -77,12 +74,11 @@ const CartShooping = ({ cartItems, onRemoveItem }) => {
       </p>
       <motion.button
         whileTap={{ scale: 1.1, opacity: 0.8, y: -10 }}
-        onClick={toggleShowOrder} // Mostrar el modal
+        onClick={toggleModal} // Mostrar el modal
         className="flex justify-center items-center w-full h-12 bg-orange-700 text-white font-normal text-lg rounded-full py-2 px-6 "
       >
         Confirm Order
       </motion.button>
-      <ModalConfirmation showOrder={showOrder} cartItems={cartItems} /> 
     </div>
   );
 };

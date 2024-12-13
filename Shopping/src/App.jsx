@@ -1,51 +1,39 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import CardShooping from "./components/card";
 import CartShooping from "./components/cartshooping";
+import ModalConfirmation from "./components/modalconfirmation";
+import { CartProvider } from "./Context";
 import data from "./data/data.json";
+import { motion } from "framer-motion";
 
 const App = () => {
-  const [postres, setPostres] = useState([]);
-  const [cartItems, setCartItems] = useState([]);
-
-  useEffect(() => {
-    setPostres(data);
-  }, []);
-
-  const handleUpdateCart = (product) => {
-    setCartItems((prev) => {
-      const exists = prev.find((item) => item.name === product.name);
-      if (product.quantity === 0) {
-        return prev.filter((item) => item.name !== product.name);
-      } else if (exists) {
-        return prev.map((item) =>
-          item.name === product.name
-            ? { ...item, quantity: product.quantity }
-            : item
-        );
-      } else {
-        return [...prev, product];
-      }
-    });
-  };
-
   return (
-    <main className="bg-rose-50 w-full min-h-screen p-4 font-redhattext">
-      <h1 className="text-4xl font-black mb-4">Desserts</h1>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container m-auto">
-        {postres.map((postre, index) => (
-          <CardShooping
-            key={index}
-            image={postre.image}
-            name={postre.name}
-            category={postre.category}
-            price={postre.price}
-            onUpdateCart={handleUpdateCart}
-            cartItems={cartItems} // Pasar carrito para sincronización
-          />
-        ))}
-      </div>
-      <CartShooping cartItems={cartItems} onRemoveItem={handleUpdateCart} />
-    </main>
+    <CartProvider>
+      <main className="bg-rose-50 w-full min-h-screen p-4 font-redhattext">
+        <div className="container lg:grid lg:grid-cols-4 p-6 gap-4">
+          <div className="col-span-3 flex justify-between">
+            <h1 className="text-4xl font-black mb-4">Desserts</h1>
+            <p className="text-orange-900">zairb1001@gmail.com</p>
+          </div>
+          <motion.div
+           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container m-auto col-span-3 ">
+            {data.map((postre, index) => (
+              <CardShooping
+                key={index}
+                image={postre.image}
+                name={postre.name}
+                category={postre.category}
+                price={postre.price}
+              />
+            ))}
+          </motion.div>
+          <div className="col-span-2 col-start-4 row-span-2 row-start-1">
+            <CartShooping />
+          </div>
+          <ModalConfirmation />
+        </div>
+      </main>
+    </CartProvider>
   );
 };
 
