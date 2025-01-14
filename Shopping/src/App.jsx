@@ -15,8 +15,7 @@ const App = () => {
             <h1 className="text-4xl font-black mb-4">Desserts</h1>
             <p className="text-orange-900">zairb1001@gmail.com</p>
           </div>
-          <motion.div
-           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container m-auto col-span-3 ">
+          <motion.div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 container m-auto col-span-3 ">
             {data.map((postre, index) => (
               <CardShooping
                 key={index}
