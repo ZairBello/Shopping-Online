@@ -11,7 +11,7 @@ const CartShooping = () => {
 
 
   return (
-    <div className="bg-white w-full h-auto flex flex-col p-4 rounded-2xl my-4 lg:my-0 font-redhattext">
+    <div className="bg-white w-full shadow-md h-auto flex flex-col p-4 rounded-2xl my-4 lg:my-0 font-redhattext">
       <h1 className="text-4xl font-bold my-4 text-[#c83b0e]">
         Your Cart <span>({cartItems.length})</span>
       </h1>
