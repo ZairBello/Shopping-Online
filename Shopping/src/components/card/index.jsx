@@ -58,7 +58,7 @@ const CardShooping = ({ image, name, category, price }) => {
         <button
           onClick={quantity === 0 ? handleAddToCart : null}
           className={`flex items-center px-8 py-3 text-orange-800 bg-white border border-rose-950 rounded-3xl -mt-6 font-semibold ${
-            quantity > 0 ? "bg-orange-600 text-white duration-300" : ""
+            quantity > 0 ? "bg-orange-500 text-white duration-300" : ""
           }`}
         >
           {quantity > 0 ? (
