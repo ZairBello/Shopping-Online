@@ -11,7 +11,7 @@ const App = () => {
     <CartProvider>
       <main className="bg-rose-50 w-full min-h-screen p-4 font-redhattext">
         <div className="container lg:grid lg:grid-cols-4 p-6 gap-4">
-          <div className="col-span-3 flex justify-between">
+          <div className="col-span-3 flex justify-between items-center">
             <h1 className="text-4xl font-black mb-4">Desserts</h1>
             <p className="text-orange-900">zairb1001@gmail.com</p>
           </div>
